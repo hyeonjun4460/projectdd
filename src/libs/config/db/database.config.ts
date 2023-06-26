@@ -18,7 +18,7 @@ const configOptions: {
     entities: [UserEntity],
     timezone: 'local',
     migrationsTableName: 'migration',
-    migrations: ['./migrations/*.ts'],
+    migrations: ['./migration/*.js'],
   },
   test: {
     type: 'mysql',
