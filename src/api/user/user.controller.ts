@@ -6,7 +6,7 @@ import { UserService } from './user.service';
 @Controller('auth')
 export class UserController {
   constructor(private readonly service: UserService) {}
-  @Post()
+  @Post('/signup')
   async createUser(@Body() body: CreateUserDto): Promise<void> {
     const birth = DateTimeUtil.toString(
       DateTimeUtil.toLocalDate(new Date(body.birth)),
