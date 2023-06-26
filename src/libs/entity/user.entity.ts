@@ -10,7 +10,7 @@ export class UserEntity extends BaseTimeEntity {
   password: string;
 
   @Column({ type: 'date', comment: '유저 생년월일' })
-  birth: Date;
+  birth: string;
 
   @Column({ type: 'boolean', comment: '관리자 여부' })
   admin: boolean;
