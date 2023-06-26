@@ -17,6 +17,8 @@ const configOptions: {
     database: process.env.DATABASE_DEV_NAME,
     entities: [UserEntity],
     timezone: 'local',
+    migrationsTableName: 'migration',
+    migrations: ['./migrations/*.ts'],
   },
   test: {
     type: 'mysql',
