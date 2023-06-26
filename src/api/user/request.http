@@ -1,0 +1,10 @@
+# signin
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+"userName": "test",
+"password": "password",
+"birth": "2023-06-26T08:26:47.350Z",
+"admin": true
+}
