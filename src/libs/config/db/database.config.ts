@@ -1,37 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { UserEntity } from '@libs/entity/user.entity';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
 
-@Injectable()
-export class DatabaseConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
-  private configOption: {
-    dev: TypeOrmModuleOptions;
-    test: TypeOrmModuleOptions;
-  } = {
-    dev: {
-      type: 'mysql',
-      host: this.configService.get('DATABASE_HOST'),
-      port: this.configService.get<number>('DATABASE_PORT'),
-      username: this.configService.get('DATABASE_USER'),
-      password: this.configService.get('DATABASE_PASSWORD'),
-      database: this.configService.get('DATABASE_DEV_NAME'),
-      entities: [],
-      timezone: 'local',
-    },
-    test: {
-      type: 'mysql',
-      host: this.configService.get('DATABASE_HOST'),
-      port: this.configService.get<number>('DATABASE_PORT'),
-      username: this.configService.get('DATABASE_USER'),
-      password: this.configService.get('DATABASE_PASSWORD'),
-      database: this.configService.get('DATABASE_TEST_NAME'),
-      entities: [],
-      timezone: 'local',
-    },
-  };
+dotenv.config();
 
-  createTypeOrmOptions(): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
-    return this.configOption[process.env.NODE_ENV];
-  }
-}
+const configOptions: {
+  dev: TypeOrmModuleOptions;
+  test: TypeOrmModuleOptions;
+} = {
+  dev: {
+    type: 'mysql',
+    host: process.env.DATABASE_HOST,
+    port: Number(process.env.DATABASE_PORT),
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_DEV_NAME,
+    entities: [UserEntity],
+    timezone: 'local',
+  },
+  test: {
+    type: 'mysql',
+    host: process.env.DATABASE_HOST,
+    port: Number(process.env.DATABASE_PORT),
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_TEST_NAME,
+    entities: [UserEntity],
+    timezone: 'local',
+  },
+};
+export const databaseConfigOptions: TypeOrmModuleOptions =
+  configOptions[process.env.NODE_ENV];
