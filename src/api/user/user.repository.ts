@@ -7,16 +7,16 @@ export class UserRepository {
   constructor(
     @InjectRepository(UserEntity) private readonly repo: Repository<UserEntity>,
   ) {}
-  findByName(userName: string): Promise<UserEntity[]> | string {
+  async findByName(userName: string): Promise<UserEntity[] | string> {
     try {
-      return this.repo.find({ where: { userName } });
+      return await this.repo.find({ where: { userName } });
     } catch (err) {
       return 'db error';
     }
   }
-  save(data: UserEntity): void | string {
+  async save(data: UserEntity): Promise<UserEntity | string> {
     try {
-      this.repo.save(data);
+      return await this.repo.save(data);
     } catch (err) {
       return 'db error';
     }
