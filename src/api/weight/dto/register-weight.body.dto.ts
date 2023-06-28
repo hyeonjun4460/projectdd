@@ -1,10 +1,12 @@
-import { IsDecimal, IsOptional } from 'class-validator';
+import { IsNumber, IsOptional, Min } from 'class-validator';
 export class RegisterWeightBodyDto {
-  @IsDecimal()
+  @IsNumber()
+  @Min(0)
   @IsOptional()
-  afterWake: number;
+  afterWake?: number;
 
-  @IsDecimal()
+  @IsNumber()
+  @Min(0)
   @IsOptional()
-  beforeSleep: number;
+  beforeSleep?: number;
 }
