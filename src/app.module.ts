@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfigOptions } from '@libs/config/db/database.config';
 import { APP_PIPE } from '@nestjs/core';
+import { WeightModule } from '@api/weight/weight.module';
 @Module({
   imports: [
     UserModule,
@@ -11,6 +12,7 @@ import { APP_PIPE } from '@nestjs/core';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(databaseConfigOptions),
+    WeightModule,
   ],
   controllers: [],
   providers: [
