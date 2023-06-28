@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseTimeEntity } from './base-time.entity';
+import { WeightEntity } from './weight.entity';
 
 @Entity()
 export class UserEntity extends BaseTimeEntity {
@@ -14,4 +15,7 @@ export class UserEntity extends BaseTimeEntity {
 
   @Column({ type: 'boolean', comment: '관리자 여부' })
   admin: boolean;
+
+  @OneToMany(() => WeightEntity, (weight) => weight.user)
+  weight: WeightEntity[];
 }

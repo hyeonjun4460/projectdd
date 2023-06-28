@@ -1,4 +1,5 @@
 import { UserEntity } from '@libs/entity/user.entity';
+import { WeightEntity } from '@libs/entity/weight.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 
@@ -15,7 +16,7 @@ const configOptions: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_DEV_NAME,
-    entities: [UserEntity],
+    entities: [UserEntity, WeightEntity],
     timezone: 'local',
     migrationsTableName: 'migration',
     migrations: ['./migration/*.js'],
@@ -27,7 +28,7 @@ const configOptions: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_TEST_NAME,
-    entities: [UserEntity],
+    entities: [UserEntity, WeightEntity],
     timezone: 'local',
   },
 };
