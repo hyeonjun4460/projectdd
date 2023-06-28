@@ -12,7 +12,7 @@ export class WeightService {
     userId: { id: number },
     date: string,
     body: { afterWake?: number; beforeSleep?: number },
-  ): Promise<void | string> {
+  ) {
     const user = this.mapper.mapUser(userId);
     const data = this.mapper.mapWeight({ user, date, ...body });
     const result = await this.repo.save(data);

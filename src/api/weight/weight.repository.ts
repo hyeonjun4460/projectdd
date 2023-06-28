@@ -10,22 +10,12 @@ export class WeightRepository {
     private readonly repo: Repository<WeightEntity>,
   ) {}
 
-  create(data: Partial<WeightEntity>) {
-    return this.repo.create(data);
-  }
-  async save(data: WeightEntity): Promise<void | string> {
+  async save(data: WeightEntity): Promise<string | WeightEntity> {
     try {
-      await this.repo.insert(data);
+      return await this.repo.save(data);
     } catch (err) {
       if (err.code === 'ER_DUP_ENTRY') {
-        await this.repo
-          .createQueryBuilder()
-          .update()
-          .where('date = :date', { date: data.date })
-          .andWhere('user = :user', { user: data.user.id })
-          .set(data)
-          .execute();
-        return;
+        return 'wrong access';
       }
       return 'db error';
     }
