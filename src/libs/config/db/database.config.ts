@@ -20,6 +20,7 @@ const configOptions: {
     timezone: 'local',
     migrationsTableName: 'migration',
     migrations: ['./migration/*.js'],
+    logging: true,
   },
   test: {
     type: 'mysql',
