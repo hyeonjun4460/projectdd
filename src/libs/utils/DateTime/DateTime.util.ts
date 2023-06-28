@@ -3,6 +3,7 @@ import {
   DateTimeFormatter,
   LocalDate,
   LocalDateTime,
+  LocalTime,
   nativeJs,
 } from '@js-joda/core';
 
@@ -22,6 +23,17 @@ export class DateTimeUtil {
       return localDate.format(DateTimeUtil.DATE_FORMATTER);
     }
     return localDate.format(DateTimeUtil.DATE_TIME_FORMATTER);
+  }
+
+  static ofLocalDate(year: number, month: number, day: number) {
+    return LocalDate.of(year, month, day);
+  }
+
+  static ofLocalTime(hour: number, minute: number) {
+    return LocalTime.of(hour, minute);
+  }
+  static ofLocalDateTime(date: LocalDate, time: LocalTime) {
+    return LocalDateTime.of(date, time);
   }
 
   // js-joda를 date로
