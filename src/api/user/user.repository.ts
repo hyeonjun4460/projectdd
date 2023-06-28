@@ -7,11 +7,6 @@ export class UserRepository {
   constructor(
     @InjectRepository(UserEntity) private readonly repo: Repository<UserEntity>,
   ) {}
-
-  create(data: Partial<UserEntity>): UserEntity {
-    return this.repo.create(data);
-  }
-
   findByName(userName: string): Promise<UserEntity[]> | string {
     try {
       return this.repo.find({ where: { userName } });

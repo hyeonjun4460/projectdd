@@ -4,10 +4,12 @@ import { UserService } from '@api/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@libs/entity/user.entity';
 import { UserRepository } from './user.repository';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
 @Module({
   imports: [
+    DataMapperModule,
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.registerAsync({
       inject: [ConfigService],
