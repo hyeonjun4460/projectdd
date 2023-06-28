@@ -1,6 +1,8 @@
 ### register weight
 POST http://localhost:3000/weight/2023/6/28
+Content-Type: application/json
 
 {
-    "hi": "there"
+    "afterWake": 55.65,
+    "beforeSleep": 70
 }
