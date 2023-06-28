@@ -67,7 +67,7 @@ export class UserService {
       return 'wrong access';
     }
     // 토큰 생성
-    const payload = { id: user.id };
+    const payload = { userId: user.id };
     const token = await this.jwt.signAsync(payload);
     return {
       userName,
