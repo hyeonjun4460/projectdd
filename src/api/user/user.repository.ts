@@ -19,7 +19,7 @@ export class UserRepository {
       return 'db error';
     }
   }
-  save(data: UserEntity) {
+  save(data: UserEntity): void | string {
     try {
       this.repo.save(data);
     } catch (err) {
