@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfigOptions } from '@libs/config/db/database.config';
 import { APP_PIPE } from '@nestjs/core';
 import { WeightModule } from '@api/weight/weight.module';
+import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
 @Module({
   imports: [
     UserModule,
@@ -13,6 +14,7 @@ import { WeightModule } from '@api/weight/weight.module';
     }),
     TypeOrmModule.forRoot(databaseConfigOptions),
     WeightModule,
+    DataMapperModule,
   ],
   controllers: [],
   providers: [

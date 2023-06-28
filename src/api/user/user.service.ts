@@ -5,6 +5,7 @@ import { promisify } from 'util';
 import { UserRepository } from './user.repository';
 import { UserEntity } from '@libs/entity/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { DataMapperService } from '@libs/utils/mapper/data-mapper.service';
 
 const scrypt = promisify(_scrypt);
 @Injectable()
@@ -13,6 +14,7 @@ export class UserService {
     private readonly configService: ConfigService,
     private readonly repo: UserRepository,
     private readonly jwt: JwtService,
+    private readonly mapper: DataMapperService,
   ) {}
 
   async createUser(
@@ -40,7 +42,7 @@ export class UserService {
     const password =
       salt + '.' + hash.toString(this.configService.get('HASH_INCODING'));
 
-    const data = this.repo.create({ userName, password, birth, admin });
+    const data = this.mapper.mapUser({ userName, password, birth, admin });
     //   여기서부턴 db 작업
     this.repo.save(data);
   }
