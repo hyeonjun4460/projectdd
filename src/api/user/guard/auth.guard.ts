@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       const payload: { userId: number } = this.jwt.verify(token, {
         secret: this.config.get('JWT_SECRET_KEY'),
       });
-      response.locals.user = payload;
+      response.locals.user = { id: payload.userId };
       return true;
     } catch (err) {
       if (err.message === 'jwt expired') {
