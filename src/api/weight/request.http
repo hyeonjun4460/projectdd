@@ -1,0 +1,6 @@
+### register weight
+POST http://localhost:3000/weight/2023/6/28
+
+{
+    "hi": "there"
+}
