@@ -10,23 +10,36 @@ export class WeightRepository {
     private readonly repo: Repository<WeightEntity>,
   ) {}
 
-  create(data: Partial<WeightEntity>) {
-    return this.repo.create(data);
-  }
-  async save(data: WeightEntity): Promise<void | string> {
+  async findOneById(id: number): Promise<string | WeightEntity> {
     try {
-      await this.repo.insert(data);
+      return await this.repo
+        .createQueryBuilder('weight')
+        .leftJoinAndSelect('weight.user', 'user')
+        .select()
+        .where('weight.id = :id', { id })
+        .getOne();
+    } catch (err) {
+      console.log(err);
+      return 'db error';
+    }
+  }
+
+  async save(data: WeightEntity): Promise<string | WeightEntity> {
+    try {
+      return await this.repo.save(data);
     } catch (err) {
       if (err.code === 'ER_DUP_ENTRY') {
-        await this.repo
-          .createQueryBuilder()
-          .update()
-          .where('date = :date', { date: data.date })
-          .andWhere('user = :user', { user: data.user.id })
-          .set(data)
-          .execute();
-        return;
+        return 'wrong access';
       }
+      return 'db error';
+    }
+  }
+
+  async update(id: number, data: WeightEntity): Promise<string | void> {
+    try {
+      await this.repo.update(id, data);
+    } catch (err) {
+      console.log(err);
       return 'db error';
     }
   }

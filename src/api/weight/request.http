@@ -1,8 +1,21 @@
 ### register weight
-POST http://localhost:3000/weight/2023/6/28
+POST http://localhost:3000/weight/2023/6/15
 Content-Type: application/json
 
 {
     "afterWake": 55.65,
     "beforeSleep": 70
 }
+
+### patch weight
+PATCH http://localhost:3000/weight/66
+Content-Type: application/json
+
+{
+    "afterWake": 55.65,
+    "beforeSleep": 80
+}
+
+### Get Weight
+GET http://localhost:3000/weight/66
+Content-Type: application/json
