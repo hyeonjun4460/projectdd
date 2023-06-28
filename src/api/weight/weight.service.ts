@@ -18,4 +18,19 @@ export class WeightService {
     const result = await this.repo.save(data);
     return result;
   }
+
+  async update(id: number, body: { afterWake?: number; beforeSleep?: number }) {
+    const data = this.mapper.mapWeight({ ...body });
+    const update = await this.repo.update(id, data);
+    if (typeof update === 'string') {
+      return update;
+    }
+    const find = await this.repo.findOneById(id);
+    console.log(find);
+    return find;
+  }
+
+  async findOne(id: number) {
+    return await this.repo.findOneById(id);
+  }
 }

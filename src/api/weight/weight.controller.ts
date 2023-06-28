@@ -9,6 +9,10 @@ import {
   Body,
   UseGuards,
   InternalServerErrorException,
+  BadRequestException,
+  Patch,
+  ParseIntPipe,
+  Get,
 } from '@nestjs/common';
 import { User } from '@api/user/decorator/user.decorator';
 import { DateTimeUtil } from '@libs/utils/DateTime/DateTime.util';
@@ -40,7 +44,40 @@ export class WeightController {
     if (result === 'db error') {
       throw new InternalServerErrorException('db error');
     }
+    if (result === 'wrong access') {
+      throw new BadRequestException('wrong access');
+    }
     // 삽입
     return { message: 'insert success', data: result };
+  }
+
+  @Serialize(WeightResponseDto)
+  @UseGuards(AuthGuard)
+  @Patch('/:id')
+  async editWeight(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: RegisterWeightBodyDto,
+  ): Promise<ResponseDto<WeightResponseDto | any>> {
+    const result = await this.service.update(id, body);
+    if (typeof result === 'string') {
+      throw new InternalServerErrorException('db error');
+    } else {
+      return { message: 'update success', data: result };
+    }
+  }
+
+  @Serialize(WeightResponseDto)
+  @UseGuards(AuthGuard)
+  @Get('/:id')
+  async getWeight(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<ResponseDto<WeightResponseDto | any>> {
+    const result = await this.service.findOne(id);
+    if (typeof result === 'string') {
+      throw new InternalServerErrorException('db error');
+    } else {
+      console.log(result);
+      return { message: 'get success', data: result };
+    }
   }
 }
