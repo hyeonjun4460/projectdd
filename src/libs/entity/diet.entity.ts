@@ -29,6 +29,6 @@ export class DietEntity extends BaseTimeEntity {
   @Column({ type: 'boolean', comment: '식사 여부', nullable: false })
   have: boolean;
 
-  @ManyToOne(() => UserEntity, (user) => user.diet)
+  @ManyToOne(() => UserEntity, (user) => user.diet, { nullable: false })
   user: UserEntity;
 }
