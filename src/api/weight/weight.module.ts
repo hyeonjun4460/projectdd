@@ -15,5 +15,6 @@ import { WeightEntity } from '@libs/entity/weight.entity';
   ],
   controllers: [WeightController],
   providers: [WeightService, WeightRepository],
+  exports: [WeightRepository],
 })
 export class WeightModule {}

@@ -1,7 +1,7 @@
 import { WeightEntity } from '@libs/entity/weight.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 
 @Injectable()
 export class WeightRepository {
@@ -40,6 +40,23 @@ export class WeightRepository {
       await this.repo.update(id, data);
     } catch (err) {
       console.log(err);
+      return 'db error';
+    }
+  }
+
+  async findBetweenDate(
+    user: Partial<WeightEntity>,
+    start: Partial<WeightEntity>,
+    end: Partial<WeightEntity>,
+  ): Promise<WeightEntity[] | string> {
+    try {
+      return this.repo.find({
+        where: { date: Between(start.date, end.date), user: user.user },
+        relations: {
+          user: true,
+        },
+      });
+    } catch (err) {
       return 'db error';
     }
   }
