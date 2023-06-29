@@ -22,7 +22,7 @@ export class UserService {
     originPassword: string,
     birth: string,
     admin: boolean,
-  ): Promise<void | string> {
+  ) {
     // 비즈니스 로직?
     const user = await this.repo.findByName(userName);
     if (user.length !== 0) {
@@ -44,13 +44,10 @@ export class UserService {
 
     const data = this.mapper.mapUser({ userName, password, birth, admin });
     //   여기서부턴 db 작업
-    this.repo.save(data);
+    return this.repo.save(data);
   }
 
-  async login(
-    userName: string,
-    originPassword: string,
-  ): Promise<{ userName: string; token: string } | string> {
+  async login(userName: string, originPassword: string) {
     const [user] = (await this.repo.findByName(userName)) as UserEntity[];
 
     if (typeof user === 'string') {
@@ -72,7 +69,7 @@ export class UserService {
     const payload = { id: user.id };
     const token = await this.jwt.signAsync(payload);
     return {
-      userName,
+      user,
       token,
     };
   }
