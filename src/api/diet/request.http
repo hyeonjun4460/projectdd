@@ -1,0 +1,13 @@
+### create diet
+POST http://localhost:3000/diet/2023/6/10/breakfast
+Content-Type: application/json
+
+{
+    "foodName": "제육볶음",
+    "foodAmount": 1,
+    "hour": 12,
+    "min": 30,
+    "place": "here",
+    "impression": "맛있네",
+    "have": true
+}
