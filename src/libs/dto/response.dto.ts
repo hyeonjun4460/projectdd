@@ -1,18 +1,21 @@
-import { Expose } from 'class-transformer';
-import { IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
+import { Exclude, Expose } from 'class-transformer';
 
 export class ResponseDto<T> {
-  @Expose()
-  @IsString()
-  message: string;
+  @Exclude() private _message: string;
+  @Exclude() private _data?: T;
+
+  constructor(message: string, data?: T) {
+    this._message = message;
+    this._data = data;
+  }
 
   @Expose()
-  @IsOptional()
-  @IsObject()
-  data?: T;
+  get message() {
+    return this._message;
+  }
 
   @Expose()
-  @IsNumber()
-  @IsOptional()
-  statusCode?: number;
+  get data() {
+    return this._data;
+  }
 }
