@@ -11,6 +11,7 @@ import { APP_PIPE, APP_INTERCEPTOR, Reflector } from '@nestjs/core';
 import { WeightModule } from '@api/weight/weight.module';
 import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
 import { DietModule } from '@api/diet/diet.module';
+import { RecordModule } from '@api/record/record.module';
 @Module({
   imports: [
     UserModule,
@@ -21,6 +22,7 @@ import { DietModule } from '@api/diet/diet.module';
     WeightModule,
     DataMapperModule,
     DietModule,
+    RecordModule,
   ],
   controllers: [],
   providers: [
