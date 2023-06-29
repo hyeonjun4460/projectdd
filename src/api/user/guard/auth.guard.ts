@@ -22,10 +22,10 @@ export class AuthGuard implements CanActivate {
     // 실패 시 false
     // 성공 시 토큰 그대로 주기
     try {
-      const payload: { userId: number } = this.jwt.verify(token, {
+      const payload: { id: number } = this.jwt.verify(token, {
         secret: this.config.get('JWT_SECRET_KEY'),
       });
-      response.locals.user = { id: payload.userId };
+      response.locals.user = { id: payload.id };
       return true;
     } catch (err) {
       if (err.message === 'jwt expired') {
