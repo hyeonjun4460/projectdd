@@ -19,4 +19,17 @@ export class DietRepository {
       return 'db error';
     }
   }
+  async findOne(data: Partial<DietEntity>): Promise<DietEntity | string> {
+    try {
+      return this.repo
+        .createQueryBuilder('diet')
+        .select()
+        .leftJoinAndSelect('diet.user', 'user')
+        .where('diet.id = :id', { id: data.id })
+        .andWhere('diet.user = :user', { user: data.user.id })
+        .getOne();
+    } catch (err) {
+      return 'db error';
+    }
+  }
 }

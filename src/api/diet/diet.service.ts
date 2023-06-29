@@ -33,4 +33,10 @@ export class DietService {
     }
     return await this.repo.create(diet);
   }
+
+  async findOne(id: number, userId: { id: number }) {
+    const user = this.mapper.mapUser(userId);
+    const diet = this.mapper.mapDiet({ id, user });
+    return await this.repo.findOne(diet);
+  }
 }
