@@ -9,5 +9,5 @@ Content-Type: application/json
     "min": 30,
     "place": "here",
     "impression": "맛있네",
-    "have": true
+    "have": false
 }
