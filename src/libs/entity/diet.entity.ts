@@ -8,7 +8,7 @@ export class DietEntity extends BaseTimeEntity {
   foodName: string;
 
   @Column({ type: 'int', comment: '음식 양', nullable: true })
-  foodAmount: string;
+  foodAmount: number;
 
   @Column({ type: 'varchar', comment: '아침/점심/저녁', nullable: true })
   category: string;
