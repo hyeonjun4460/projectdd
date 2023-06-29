@@ -11,3 +11,7 @@ Content-Type: application/json
     "impression": "맛있네",
     "have": false
 }
+
+### get diet
+GET http://localhost:3000/diet/9
+Content-Type: application/json

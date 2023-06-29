@@ -6,6 +6,8 @@ import {
   UseGuards,
   BadRequestException,
   InternalServerErrorException,
+  Get,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateDietParamDto } from './dto/create-diet.param.dto';
 import { CreateDietBodyDto } from './dto/create-diet.body.dto';
@@ -54,5 +56,22 @@ export class DietController {
     } else {
       return new ResponseDto('insert success', new DietResponseDto(data));
     }
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/:id')
+  async getDiet(
+    @Param('id', ParseIntPipe) id: number,
+    @User() user: { id: number },
+  ) {
+    const data = await this.service.findOne(id, user);
+
+    if (typeof data === 'string') {
+      throw new InternalServerErrorException('db error');
+    }
+    if (!data) {
+      throw new BadRequestException('wrong access');
+    }
+    return new ResponseDto('get success', new DietResponseDto(data));
   }
 }
