@@ -15,5 +15,6 @@ import { DietRepository } from './diet.repository';
   ],
   controllers: [DietController],
   providers: [DietService, DietRepository],
+  exports: [DietRepository],
 })
 export class DietModule {}
