@@ -1,21 +1,30 @@
-import { Expose, Transform } from 'class-transformer';
-import { IsNumber } from 'class-validator';
+import { WeightEntity } from '@libs/entity/weight.entity';
+import { Exclude, Expose } from 'class-transformer';
 
 export class WeightResponseDto {
-  @Expose()
-  @IsNumber()
-  id: number;
+  @Exclude() private _data: WeightEntity;
+
+  constructor(data: WeightEntity) {
+    this._data = data;
+  }
 
   @Expose()
-  @IsNumber()
-  afterWake: number;
+  get id() {
+    return this._data.id;
+  }
 
   @Expose()
-  @IsNumber()
-  beforeSleep: number;
+  get afterWake() {
+    return this._data.afterWake;
+  }
 
-  @Transform(({ obj }) => obj.user.id)
   @Expose()
-  @IsNumber()
-  userId: number;
+  get beforeSleep() {
+    return this._data.beforeSleep;
+  }
+
+  @Expose()
+  get userId() {
+    return this._data.user.id;
+  }
 }
