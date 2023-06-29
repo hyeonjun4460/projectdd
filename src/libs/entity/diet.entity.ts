@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, Unique } from 'typeorm';
 import { BaseTimeEntity } from './base-time.entity';
 import { UserEntity } from './user.entity';
 
 @Entity()
+@Unique('diet unique key', ['date', 'category', 'user'])
 export class DietEntity extends BaseTimeEntity {
   @Column({ type: 'varchar', comment: '음식 이름', nullable: true })
   foodName: string;
