@@ -20,12 +20,10 @@ export class DietService {
     have: boolean,
   ) {
     const user = this.mapper.mapUser(userId);
-    const diet = this.mapper.mapDiet({ user, have });
+    const diet = this.mapper.mapDiet({ user, date, have, category });
     if (have) {
       Object.assign(diet, {
-        date,
         time,
-        category,
         foodName,
         foodAmount,
         place,
@@ -33,6 +31,6 @@ export class DietService {
         impression,
       });
     }
-    return this.repo.create(diet);
+    return await this.repo.create(diet);
   }
 }
