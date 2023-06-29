@@ -1,9 +1,13 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import {
+  Module,
+  ValidationPipe,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { UserModule } from '@api/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfigOptions } from '@libs/config/db/database.config';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_PIPE, APP_INTERCEPTOR, Reflector } from '@nestjs/core';
 import { WeightModule } from '@api/weight/weight.module';
 import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
 @Module({
@@ -21,6 +25,10 @@ import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({ whitelist: true, transform: true }),
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useValue: new ClassSerializerInterceptor(new Reflector()),
     },
   ],
 })
