@@ -51,7 +51,7 @@ export class RecordController {
             return new WeightResponseDto(value);
           }),
           diet: result.diet.map((value) => {
-            return new DietResponseDto(value);
+            return new DietResponseDto({ diet: value });
           }),
         },
         user,

@@ -1,5 +1,5 @@
 ### create diet
-POST http://localhost:3000/diet/2023/7/1/breakfast
+POST http://localhost:3000/diet/2023/7/1/lunch
 Content-Type: application/json
 
 {
@@ -9,7 +9,8 @@ Content-Type: application/json
     "min": 30,
     "place": "here",
     "impression": "맛있네",
-    "have": false
+    "have": false,
+    "fileUpload": false
 }
 
 ### get diet
