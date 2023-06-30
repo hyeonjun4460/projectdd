@@ -53,4 +53,10 @@ export class DietService {
   async getPresignedUrl(key: string) {
     return await this.fileuploader.createPostURL(key);
   }
+
+  async delete(id: number, userId: { id: number }) {
+    const user = this.mapper.mapUser(userId);
+    const diet = this.mapper.mapDiet({ id });
+    return this.repo.delete(diet, user);
+  }
 }

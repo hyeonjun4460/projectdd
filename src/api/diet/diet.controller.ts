@@ -8,6 +8,7 @@ import {
   InternalServerErrorException,
   Get,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { CreateDietParamDto } from './dto/create-diet.param.dto';
 import { CreateDietBodyDto } from './dto/create-diet.body.dto';
@@ -77,5 +78,20 @@ export class DietController {
       throw new BadRequestException('wrong access');
     }
     return new ResponseDto('get success', new DietResponseDto({ diet }));
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('/:id')
+  async deleteDiet(
+    @Param('id', ParseIntPipe) id: number,
+    @User() user: { id: number },
+  ): Promise<ResponseDto<never>> {
+    const data = await this.service.delete(id, user);
+    if (typeof data === 'string') {
+      throw new InternalServerErrorException('db error');
+    } else if (!data.affected) {
+      throw new BadRequestException('wrong access');
+    }
+    return new ResponseDto('delete success');
   }
 }
