@@ -14,6 +14,9 @@ export class DateTimeUtil {
   );
   private static TIME_FORMATTER = DateTimeFormatter.ofPattern('HH:mm');
 
+  static getCurrentLocalDateTime() {
+    return LocalDateTime.now();
+  }
   // js-joda를 string으로
   static toString(localDate: LocalDate | LocalDateTime | LocalTime): string {
     if (!localDate) {
