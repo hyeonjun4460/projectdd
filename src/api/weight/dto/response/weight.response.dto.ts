@@ -24,6 +24,11 @@ export class WeightResponseDto {
   }
 
   @Expose()
+  get date() {
+    return this._data.date;
+  }
+
+  @Expose()
   get userId() {
     return this._data.user.id;
   }

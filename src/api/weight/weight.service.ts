@@ -33,4 +33,10 @@ export class WeightService {
   async findOne(id: number) {
     return await this.repo.findOneById(id);
   }
+
+  async delete(id: number, userId: { id: number }) {
+    const user = this.mapper.mapUser(userId);
+    const weight = this.mapper.mapDiet({ id });
+    return await this.repo.delete(user, weight);
+  }
 }
