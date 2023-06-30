@@ -1,5 +1,5 @@
 ### register weight
-POST http://localhost:3000/weight/2023/6/15
+POST http://localhost:3000/weight/2023/6/10
 Content-Type: application/json
 
 {
@@ -19,3 +19,6 @@ Content-Type: application/json
 ### Get Weight
 GET http://localhost:3000/weight/66
 Content-Type: application/json
+
+### Delete Weight
+DELETE http://localhost:3000/weight/69

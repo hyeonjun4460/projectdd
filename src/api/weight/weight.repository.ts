@@ -1,7 +1,7 @@
 import { WeightEntity } from '@libs/entity/weight.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, Repository } from 'typeorm';
+import { Between, DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class WeightRepository {
@@ -56,6 +56,17 @@ export class WeightRepository {
           user: true,
         },
       });
+    } catch (err) {
+      return 'db error';
+    }
+  }
+
+  async delete(
+    user: Partial<WeightEntity>,
+    weight: Partial<WeightEntity>,
+  ): Promise<DeleteResult | string> {
+    try {
+      return this.repo.delete({ id: weight.id, user });
     } catch (err) {
       return 'db error';
     }

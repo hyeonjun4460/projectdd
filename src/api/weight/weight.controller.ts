@@ -13,6 +13,7 @@ import {
   Patch,
   ParseIntPipe,
   Get,
+  Delete,
 } from '@nestjs/common';
 import { User } from '@api/user/decorator/user.decorator';
 import { DateTimeUtil } from '@libs/utils/DateTime/DateTime.util';
@@ -74,5 +75,20 @@ export class WeightController {
       throw new InternalServerErrorException('db error');
     }
     return new ResponseDto('get success', new WeightResponseDto(result));
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('/:id')
+  async deleteWeight(
+    @Param('id', ParseIntPipe) id: number,
+    @User() user: { id: number },
+  ): Promise<ResponseDto<never>> {
+    const data = await this.service.delete(id, user);
+    if (typeof data === 'string') {
+      throw new InternalServerErrorException('db error');
+    } else if (!data.affected) {
+      throw new BadRequestException('wrong access');
+    }
+    return new ResponseDto('delete success');
   }
 }
