@@ -35,7 +35,7 @@ export class DietController {
     const date = DateTimeUtil.toString(
       DateTimeUtil.ofLocalDate(param.year, param.month, param.day),
     );
-    const data = await this.service.create(
+    const { diet, presignedUrl } = await this.service.create(
       user,
       date,
       dietTime,
@@ -45,16 +45,20 @@ export class DietController {
       body.place,
       body.impression,
       body.have,
+      body.fileUpload,
     );
-    if (typeof data === 'string') {
-      if (data === 'wrong access') {
+    if (typeof diet === 'string') {
+      if (diet === 'wrong access') {
         throw new BadRequestException('wrong access');
       }
-      if (data === 'db error') {
+      if (diet === 'db error') {
         throw new InternalServerErrorException('db error');
       }
     } else {
-      return new ResponseDto('insert success', new DietResponseDto(data));
+      return new ResponseDto(
+        'insert success',
+        new DietResponseDto({ diet, presignedUrl }),
+      );
     }
   }
 
@@ -64,14 +68,14 @@ export class DietController {
     @Param('id', ParseIntPipe) id: number,
     @User() user: { id: number },
   ) {
-    const data = await this.service.findOne(id, user);
+    const diet = await this.service.findOne(id, user);
 
-    if (typeof data === 'string') {
+    if (typeof diet === 'string') {
       throw new InternalServerErrorException('db error');
     }
-    if (!data) {
+    if (!diet) {
       throw new BadRequestException('wrong access');
     }
-    return new ResponseDto('get success', new DietResponseDto(data));
+    return new ResponseDto('get success', new DietResponseDto({ diet }));
   }
 }

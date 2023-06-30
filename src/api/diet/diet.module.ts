@@ -6,9 +6,11 @@ import { DietEntity } from '@libs/entity/diet.entity';
 import { DataMapperModule } from '@libs/utils/mapper/data-mapper.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DietRepository } from './diet.repository';
+import { FileUploadModule } from '@libs/utils/fileUpload/file-upload.module';
 
 @Module({
   imports: [
+    FileUploadModule,
     DataMapperModule,
     JwtModule,
     TypeOrmModule.forFeature([DietEntity]),

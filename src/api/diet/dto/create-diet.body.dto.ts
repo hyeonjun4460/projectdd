@@ -25,4 +25,7 @@ export class CreateDietBodyDto {
 
   @IsBoolean()
   have: boolean;
+
+  @IsBoolean()
+  fileUpload: boolean;
 }
