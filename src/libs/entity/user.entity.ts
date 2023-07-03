@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, Relation } from 'typeorm';
 import { BaseTimeEntity } from './base-time.entity';
 import { WeightEntity } from './weight.entity';
 import { DietEntity } from './diet.entity';
@@ -18,8 +18,8 @@ export class UserEntity extends BaseTimeEntity {
   admin: boolean;
 
   @OneToMany(() => WeightEntity, (weight) => weight.user)
-  weight: WeightEntity[];
+  weight: Relation<WeightEntity[]>;
 
   @OneToMany(() => DietEntity, (diet) => diet.user)
-  diet: DietEntity[];
+  diet: Relation<DietEntity[]>;
 }

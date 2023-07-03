@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, Unique } from 'typeorm';
+import { Entity, Column, ManyToOne, Unique, Relation } from 'typeorm';
 import { BaseTimeEntity } from './base-time.entity';
 import { UserEntity } from './user.entity';
 
@@ -15,5 +15,5 @@ export class WeightEntity extends BaseTimeEntity {
   beforeSleep: number;
 
   @ManyToOne(() => UserEntity, (user) => user.weight, { nullable: false })
-  user: UserEntity;
+  user: Relation<UserEntity>;
 }

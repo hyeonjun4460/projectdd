@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json.schemastore.org/swcrc",
+    "sourceMaps": true,
+    "module": {"type": "commonjs"},
+    "env": {},
+    "jsc": {
+      "parser": {
+        "syntax": "typescript",
+        "decorators": true,
+        "dynamicImport": true
+      },
+      "paths": {
+        "@api/*": [
+            "./dist/api/*"
+          ],
+          "@libs/*": [
+            "./dist/libs/*"
+          ]
+      },
+      "baseUrl": "./"
+    },
+    "minify": false
+
+  }
+  

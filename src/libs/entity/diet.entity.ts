@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, Unique } from 'typeorm';
+import { Column, Entity, ManyToOne, Unique, Relation } from 'typeorm';
 import { BaseTimeEntity } from './base-time.entity';
 import { UserEntity } from './user.entity';
 
@@ -30,5 +30,5 @@ export class DietEntity extends BaseTimeEntity {
   have: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.diet, { nullable: false })
-  user: UserEntity;
+  user: Relation<UserEntity>;
 }
