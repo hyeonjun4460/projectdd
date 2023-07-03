@@ -51,7 +51,7 @@ export class WeightRepository {
   ): Promise<WeightEntity[] | string> {
     try {
       return this.repo.find({
-        where: { date: Between(start.date, end.date), user: user.user },
+        where: { date: Between(start.date, end.date), user },
         relations: {
           user: true,
         },

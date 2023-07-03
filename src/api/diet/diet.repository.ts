@@ -40,8 +40,9 @@ export class DietRepository {
     end: Partial<DietEntity>,
   ): Promise<DietEntity[] | string> {
     try {
+      console.log(user);
       return this.repo.find({
-        where: { date: Between(start.date, end.date), user: user.user },
+        where: { date: Between(start.date, end.date), user },
         relations: {
           user: true,
         },
