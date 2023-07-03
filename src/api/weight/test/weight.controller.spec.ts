@@ -1,5 +1,6 @@
+console.log(__dirname);
 import { Test, TestingModule } from '@nestjs/testing';
-import { WeightController } from './weight.controller';
+import { WeightController } from '../../../../src/api/weight/weight.controller';
 
 describe('WeightController', () => {
   let controller: WeightController;
